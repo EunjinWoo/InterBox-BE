@@ -1,4 +1,9 @@
 package com.interbox.interbox_be.domain.user.dto.response;
 
-public class UserRes {
+import com.interbox.interbox_be.domain.user.entity.User;
+
+public record UserRes(Long id) {
+    public static UserRes from(User user) {
+        return new UserRes(user.getId());
+    }
 }
