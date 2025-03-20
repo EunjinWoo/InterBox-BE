@@ -17,7 +17,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ApplicationResponse<UserRes> createUser(@RequestBody UserCreateReq req) {
         return ApplicationResponse.ok(UserRes.of(userService.createUser(req)));
     }
