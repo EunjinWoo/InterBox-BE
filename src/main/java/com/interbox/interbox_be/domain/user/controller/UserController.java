@@ -1,15 +1,15 @@
 package com.interbox.interbox_be.domain.user.controller;
 
+import com.interbox.interbox_be.domain.job.dto.request.JobTypeReq;
 import com.interbox.interbox_be.domain.user.dto.request.UserCreateReq;
 import com.interbox.interbox_be.domain.user.dto.response.UserRes;
 import com.interbox.interbox_be.domain.user.service.UserService;
 import com.interbox.interbox_be.global.response.ApplicationResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
@@ -17,8 +17,22 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ApplicationResponse<UserRes> createUser(@RequestBody UserCreateReq req) {
         return ApplicationResponse.ok(UserRes.of(userService.createUser(req)));
     }
+
+    @GetMapping("/{userId}")
+    public ApplicationResponse<UserRes> getUserWithJobs(@PathVariable Long userId) {
+        return ApplicationResponse.ok(UserRes.of(userService.getUserWithJobs(userId)));
+    }
+
+    @PutMapping("/{userId}/job")
+    public ApplicationResponse<UserRes> updateUserJobs(
+            @PathVariable Long userId,
+            @RequestBody JobTypeReq jobTypeReq
+    ) {
+        return ApplicationResponse.ok(UserRes.of(userService.updateUserJobs(userId, jobTypeReq.jobTypes())));
+    }
+
 }
