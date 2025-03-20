@@ -1,7 +1,6 @@
 package com.interbox.interbox_be.domain.user.controller;
 
 import com.interbox.interbox_be.domain.job.dto.request.JobTypeReq;
-import com.interbox.interbox_be.domain.job.dto.response.SelectedJobRes;
 import com.interbox.interbox_be.domain.user.dto.request.UserCreateReq;
 import com.interbox.interbox_be.domain.user.dto.response.UserRes;
 import com.interbox.interbox_be.domain.user.service.UserService;
@@ -9,8 +8,6 @@ import com.interbox.interbox_be.global.response.ApplicationResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -26,9 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ApplicationResponse<UserRes> getUserWithJobs(
-            @PathVariable Long userId
-    ) {
+    public ApplicationResponse<UserRes> getUserWithJobs(@PathVariable Long userId) {
         return ApplicationResponse.ok(UserRes.of(userService.getUserWithJobs(userId)));
     }
 
