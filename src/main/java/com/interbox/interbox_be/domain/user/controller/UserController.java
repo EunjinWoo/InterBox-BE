@@ -1,6 +1,8 @@
 package com.interbox.interbox_be.domain.user.controller;
 
 import com.interbox.interbox_be.domain.job.dto.request.JobTypeReq;
+import com.interbox.interbox_be.domain.question.entity.UserQuestionStatus;
+import com.interbox.interbox_be.domain.question.repository.UserQuestionStatusRepository;
 import com.interbox.interbox_be.domain.user.dto.request.UserCreateReq;
 import com.interbox.interbox_be.domain.user.dto.response.UserRes;
 import com.interbox.interbox_be.domain.user.service.UserService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final UserQuestionStatusRepository userQuestionStatusRepository;
 
     @PostMapping
     public ApplicationResponse<UserRes> createUser(@RequestBody UserCreateReq req) {
@@ -34,5 +37,19 @@ public class UserController {
     ) {
         return ApplicationResponse.ok(UserRes.of(userService.updateUserJobs(userId, jobTypeReq.jobTypes())));
     }
+
+    @GetMapping("/{userId}/{questionId}/isSolved")
+    public ApplicationResponse<Boolean> isQuestionSolvedByUser(
+            @PathVariable Long userId,
+            @PathVariable Long questionId) {
+
+        boolean isSolved = userQuestionStatusRepository
+                .findByUserIdAndQuestionId(userId, questionId)
+                .map(UserQuestionStatus::getIsSolved)
+                .orElse(false);
+
+        return ApplicationResponse.ok(isSolved);
+    }
+
 
 }

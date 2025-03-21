@@ -9,11 +9,11 @@ public record QuestionRes (
         String questionContent,
         Boolean isSolved
 ) {
-    public static QuestionRes of(Question question) {
+    public static QuestionRes of(Question question, Boolean isSolved) {
         return QuestionRes.builder()
                 .id(question.getId())
                 .questionContent(question.getQuestionContent())
-                .isSolved(question.getIsSolved())
+                .isSolved(isSolved)
                 .build();
     }
 }
