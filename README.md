@@ -12,4 +12,6 @@
 
 
 ### ERD
-<img width="903" alt="image" src="https://github.com/user-attachments/assets/60249a25-3615-4bc9-a222-dcfb238c6349" />
+<p align="center"> 
+    <img width="903" alt="image" src="https://github.com/user-attachments/assets/60249a25-3615-4bc9-a222-dcfb238c6349" />
+</p>
