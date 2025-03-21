@@ -18,9 +18,12 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
-    @GetMapping("/{jobId}")
-    public ApplicationResponse<List<QuestionRes>> getQuestionsByJob(@PathVariable Long jobId){
-        List<QuestionRes> questions = questionService.getQuestionsByJob(jobId);
+    @GetMapping("/{jobId}/{userId}")
+    public ApplicationResponse<List<QuestionRes>> getQuestionsByJob(
+            @PathVariable Long jobId,
+            @PathVariable Long userId
+    ){
+        List<QuestionRes> questions = questionService.getQuestionsByJob(jobId, userId);
         return ApplicationResponse.ok(questions);
     }
 }
